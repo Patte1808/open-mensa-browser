@@ -1,4 +1,4 @@
-# Pocket Beer rocks for ever!
+# OpenMensa Android Client
 <!-- toc -->
 
 * [Introduction](#introduction)
