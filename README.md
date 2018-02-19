@@ -10,7 +10,7 @@
 
 ## Introduction
 
-OpenMensa aims to help students in Germany with a nicer experience on their local cafeteria.
+OpenMensa helps students in Germany with a nicer experience on their local cafeteria.
 
 ## Structure
 
