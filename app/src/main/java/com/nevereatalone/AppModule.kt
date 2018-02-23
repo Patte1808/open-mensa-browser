@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 
 @Module
-class AppModule(val context: Context) {
+class AppModule(private val context: Context) {
 
     @Singleton
     @Provides
@@ -41,6 +41,7 @@ class AppModule(val context: Context) {
     @Provides
     fun provideSchedulerCompletableTransformer(transformer: CompletableThreadTransformerImpl): CompletableThreadTransformer = transformer
 
+    @Singleton
     @Provides
     fun provideRxDisposables(): RxDisposables = CompositeDisposables()
 

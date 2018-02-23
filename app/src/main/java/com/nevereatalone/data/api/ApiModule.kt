@@ -1,7 +1,7 @@
 package com.nevereatalone.data.api
 
+import com.nevereatalone.BuildConfig
 import com.nevereatalone.common.Consts.Companion.API_ENDPOINT
-import com.nevereatalone.openmensa.BuildConfig
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -46,6 +46,4 @@ class ApiModule {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
-
-
 }
