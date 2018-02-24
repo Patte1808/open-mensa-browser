@@ -19,7 +19,7 @@ class AppModule(private val context: Context) {
 
     @Singleton
     @Provides
-    fun provideAppRounter(): AppRouter = AppRouter(context)
+    fun provideAppRouter(): AppRouter = AppRouter(context)
 
     @Singleton
     @Provides
