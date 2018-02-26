@@ -40,6 +40,8 @@ class MensaListActivity : AppCompatActivity() {
     @Inject
     lateinit var userService: UserService
 
+    val component by lazy { app.component.plus(MensaListModule(this)) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mensa_list)
