@@ -1,5 +1,6 @@
 package com.nevereatalone.feature.list
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,18 +15,21 @@ import javax.inject.Inject
 
 class MensaListActivity : AppCompatActivity() {
 
+    val Activity.app: App
+        get() = application as App
+
     @Inject
     lateinit var getMensaList: GetMensaList
 
     @Inject
     lateinit var singleThreadTransformer: SingleThreadTransformer
 
+    val component by lazy { app.component.plus(MensaListModule(this)) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mensa_list)
-        (application as App).appComponent
-                .plus(MensaListModule())
-                .inject(this)
+        component.inject(this)
 
         getMensaList.call()
                 .compose(singleThreadTransformer.apply())

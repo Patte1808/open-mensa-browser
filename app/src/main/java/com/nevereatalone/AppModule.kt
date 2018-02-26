@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.res.Resources
 import com.nevereatalone.common.AppRouter
 import com.nevereatalone.common.rx.*
-import com.nevereatalone.feature.list.interactor.GetMensaList
-import com.nevereatalone.feature.list.interactor.GetMensaListImpl
 import dagger.Module
 import dagger.Provides
 import java.util.*
@@ -46,9 +44,4 @@ class AppModule(private val context: Context) {
     @Singleton
     @Provides
     fun provideRxDisposables(): RxDisposables = CompositeDisposables()
-
-    @Provides
-    @Singleton
-    fun provideGetMensaList(interactor: GetMensaListImpl): GetMensaList = interactor
-
 }
