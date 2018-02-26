@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
@@ -24,6 +25,9 @@ android {
             // will modify app icons and distribute to Beta channel
         }
     }
+}
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
