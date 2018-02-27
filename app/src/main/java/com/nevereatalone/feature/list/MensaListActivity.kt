@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.nevereatalone.App
 import com.nevereatalone.R
+
 import com.nevereatalone.common.rx.SingleThreadTransformer
 import com.nevereatalone.data.api.User
 import com.nevereatalone.data.api.firebase.FirebaseUserService
@@ -15,7 +16,9 @@ import com.nevereatalone.feature.list.interactor.MensListAdapter
 import com.nevereatalone.feature.models.Canteen
 import kotlinx.android.synthetic.main.mensa_list.*
 import javax.inject.Inject
-
+import com.nevereatalone.data.api.User
+import com.nevereatalone.data.api.firebase.FirebaseUserService
+import com.nevereatalone.data.api.firebase.UserService
 
 class MensaListActivity : AppCompatActivity() {
 
@@ -36,6 +39,12 @@ class MensaListActivity : AppCompatActivity() {
 
     val component by lazy { app.component.plus(MensaListModule(this)) }
 
+    @Inject
+    lateinit var firebaseUserService: FirebaseUserService
+
+    @Inject
+    lateinit var userService: UserService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mensa_list)
@@ -51,6 +60,21 @@ class MensaListActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = MensListAdapter(canteens)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // I think this does belong in a splash activity, but at this moment, this should be ok
+        // There should also happen something if auth isn't succesfully.
+        // But I'm lacking MVI knowledge at this moment. We need to discuss it again I think
+        firebaseUserService.getAuthAnonymous().addOnSuccessListener({
+            if (it.additionalUserInfo.isNewUser) {
+                val user = User(it.user.uid, "Patrick", 25, "Male")
+
+                userService.createUserProfile(user)
+            }
+        })
     }
 
     override fun onStart() {
