@@ -1,11 +1,10 @@
 package com.nevereatalone.feature.list
 
-import com.nevereatalone.ActivityScope
+import com.nevereatalone.FeatureScope
 import dagger.Subcomponent
 
-@ActivityScope
-@Subcomponent(modules = arrayOf(MensaListModule::class))
-
+@Subcomponent(modules = [(MensaListModule::class)])
+@FeatureScope
 interface MensaListComponent {
     fun inject(mensaListActivity: MensaListActivity)
 }

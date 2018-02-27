@@ -10,7 +10,7 @@ class App : Application() {
     @Inject
     lateinit var app : Application
 
-     val appComponent: AppComponent by lazy {
+     val component: AppComponent by lazy {
         DaggerAppComponent.builder()
                 .appModule(AppModule(this.applicationContext))
                 .apiModule(ApiModule())
@@ -20,7 +20,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initTimber()
-        appComponent.inject(this)
+        component.inject(this)
     }
 
     private fun initTimber() {

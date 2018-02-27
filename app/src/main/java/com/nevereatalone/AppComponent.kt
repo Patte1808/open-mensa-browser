@@ -15,5 +15,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(app: Application)
+
     fun plus(listModule: MensaListModule): MensaListComponent
 }

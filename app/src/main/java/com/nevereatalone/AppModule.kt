@@ -44,5 +44,4 @@ class AppModule(private val context: Context) {
     @Singleton
     @Provides
     fun provideRxDisposables(): RxDisposables = CompositeDisposables()
-
 }
