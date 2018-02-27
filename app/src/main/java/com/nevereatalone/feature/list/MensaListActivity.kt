@@ -4,36 +4,24 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.nevereatalone.App
 import com.nevereatalone.R
-
-import com.nevereatalone.common.rx.SingleThreadTransformer
-import com.nevereatalone.data.api.User
-import com.nevereatalone.data.api.firebase.FirebaseUserService
-import com.nevereatalone.data.api.firebase.UserService
-import com.nevereatalone.feature.list.interactor.GetMensaList
 import com.nevereatalone.feature.list.interactor.MensListAdapter
 import com.nevereatalone.feature.models.Canteen
 import kotlinx.android.synthetic.main.mensa_list.*
 import javax.inject.Inject
 
 
-class MensaListActivity : AppCompatActivity() {
+class MensaListActivity : AppCompatActivity(), MensaListContract.View {
+
 
     val Activity.app: App
         get() = application as App
 
-    @Inject
-    lateinit var getMensaList: GetMensaList
 
     @Inject
-    lateinit var singleThreadTransformer: SingleThreadTransformer
-
-    @Inject
-    lateinit var firebaseUserService: FirebaseUserService
-
-    @Inject
-    lateinit var userService: UserService
+    lateinit var presenter: MensaListContract.Presenter
 
     val component by lazy { app.component.plus(MensaListModule(this)) }
 
@@ -41,31 +29,39 @@ class MensaListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mensa_list)
         component.inject(this)
-
-        getMensaList.call()
-                .compose(singleThreadTransformer.apply())
-                .subscribe({ canteens -> initViews(canteens) })
+        presenter.onAttached()
     }
 
-    private fun initViews(canteens: List<Canteen>) {
+
+    override fun onStart() {
+        super.onStart()
+        presenter.onShown()
+    }
+
+    override fun loadDataToList(canteens: List<Canteen>) {
         list_mensa.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = MensListAdapter(canteens)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun showEmptyView() {
+        tv_no_mensa.visibility = View.VISIBLE
+    }
 
-        // I think this does belong in a splash activity, but at this moment, this should be ok
-        // There should also happen something if auth isn't succesfully.
-        // But I'm lacking MVI knowledge at this moment. We need to discuss it again I think
-        firebaseUserService.getAuthAnonymous().addOnSuccessListener({
-            if (it.additionalUserInfo.isNewUser) {
-                val user = User(it.user.uid, "Patrick", 25, "Male")
+    override fun showList() {
+        list_mensa.visibility = View.VISIBLE
+    }
 
-                userService.createUserProfile(user)
-            }
-        })
+    override fun hideList() {
+        list_mensa.visibility = View.GONE
+    }
+
+    override fun showLoading() {
+        gb_list.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        gb_list.visibility = View.GONE
     }
 }
