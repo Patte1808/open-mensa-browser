@@ -7,10 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.nevereatalone.App
 import com.nevereatalone.R
 import com.nevereatalone.common.rx.SingleThreadTransformer
-import com.nevereatalone.feature.list.interactor.GetMensaList
-import com.nevereatalone.feature.list.interactor.MensListAdapter
-import com.nevereatalone.feature.models.Canteen
-import kotlinx.android.synthetic.main.mensa_list.*
 import com.nevereatalone.data.api.User
 import com.nevereatalone.data.api.firebase.FirebaseUserService
 import com.nevereatalone.data.api.firebase.UserService
@@ -31,8 +27,6 @@ class MensaListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var singleThreadTransformer: SingleThreadTransformer
-
-    val component by lazy { app.component.plus(MensaListModule(this)) }
 
     @Inject
     lateinit var firebaseUserService: FirebaseUserService
