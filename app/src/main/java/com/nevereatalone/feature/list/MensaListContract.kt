@@ -12,10 +12,12 @@ interface MensaListContract {
         fun showLoading()
         fun hideLoading()
         fun showList()
+        fun hideEmptyView()
     }
 
     interface Presenter {
         fun onAttached()
         fun onShown()
+        fun onDetached()
     }
 }

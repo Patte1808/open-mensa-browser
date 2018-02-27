@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 
 class MensaListActivity : AppCompatActivity(), MensaListContract.View {
-
-
     val Activity.app: App
         get() = application as App
 
@@ -38,6 +36,11 @@ class MensaListActivity : AppCompatActivity(), MensaListContract.View {
         presenter.onShown()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDetached()
+    }
+
     override fun loadDataToList(canteens: List<Canteen>) {
         list_mensa.apply {
             layoutManager = LinearLayoutManager(context)
@@ -46,7 +49,11 @@ class MensaListActivity : AppCompatActivity(), MensaListContract.View {
     }
 
     override fun showEmptyView() {
-        tv_no_mensa.visibility = View.VISIBLE
+        v_no_mensa.visibility = View.VISIBLE
+    }
+
+    override fun hideEmptyView() {
+        v_no_mensa.visibility = View.GONE
     }
 
     override fun showList() {

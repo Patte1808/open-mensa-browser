@@ -6,34 +6,45 @@
     android:layout_height="match_parent"
     tools:context="com.nevereatalone.feature.list.MensaListActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/gb_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/v_no_mensa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_no_mensa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/hint_no_mensa"
-            tools:visibility="visible"/>
+            android:layout_marginBottom="25dp"
+            android:text="@string/hint_no_mensa"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"/>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_mensa"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:visibility="visible"/>
-
-        <!--<ProgressBar-->
-            <!--android:id="@+id/gb_list"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:visibility="gone"-->
-            <!--tools:visibility="visible"/>-->
-
-
+            android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
