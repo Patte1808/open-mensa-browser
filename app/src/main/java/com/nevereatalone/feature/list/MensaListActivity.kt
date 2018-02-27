@@ -14,8 +14,11 @@ import kotlinx.android.synthetic.main.mensa_list.*
 import com.nevereatalone.data.api.User
 import com.nevereatalone.data.api.firebase.FirebaseUserService
 import com.nevereatalone.data.api.firebase.UserService
+import com.nevereatalone.feature.list.interactor.GetMensaList
+import com.nevereatalone.feature.list.interactor.MensListAdapter
+import com.nevereatalone.feature.models.Canteen
+import kotlinx.android.synthetic.main.mensa_list.*
 import javax.inject.Inject
-
 
 
 class MensaListActivity : AppCompatActivity() {
