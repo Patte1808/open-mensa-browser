@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OpenMensa</string>
     <string name="hint_no_mensa">No Mensa Found</string>
+    <string name="retry">Retry</string>
 </resources>

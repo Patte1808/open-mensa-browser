@@ -7,7 +7,14 @@ import dagger.Provides
 
 
 @Module
-class MensaListModule(val activity: MensaListActivity) {
+class MensaListModule(val activity: MensaListContract.View) {
+
+    @Provides
+    fun provideView() = activity
+
     @Provides
     fun provideGetMensaList(interactor: GetMensaListImpl): GetMensaList = interactor
+
+    @Provides
+    fun providePresenter(present: MensaPresenter): MensaListContract.Presenter = present
 }
