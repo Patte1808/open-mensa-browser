@@ -10,12 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
         <activity
-            android:name=".feature.list.MensaListActivity"
-            android:launchMode="singleTask">
+            android:name=".feature.onboarding.OnboardingView"
+            android:label="@string/title_activity_onboarding_view"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

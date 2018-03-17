@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">OpenMensa</string>
     <string name="hint_no_mensa">No Mensa Found</string>
+    <string name="title_activity_onboarding_view">OnboardingView</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
     <string name="retry">Retry</string>
+    <string name="introduction_title">Awesome app</string>
+    <string name="introduction_description">A super nice description, which explains the usecase of this app in a very short sentence.</string>
+    <string name="taste_title">Choose your taste</string>
+    <string name="taste_description">Are you a vegan, vegetarian or do you eat anything?</string>
+    <string name="profile_title">Who are you?</string>
+    <string name="profile_description">Create a profile of yourself or skip it for now</string>
 </resources>
