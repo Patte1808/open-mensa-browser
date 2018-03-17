@@ -11,4 +11,5 @@
     <string name="taste_description">Are you a vegan, vegetarian or do you eat anything?</string>
     <string name="profile_title">Who are you?</string>
     <string name="profile_description">Create a profile of yourself or skip it for now</string>
+    <string name="hint_username">Username</string>
 </resources>
