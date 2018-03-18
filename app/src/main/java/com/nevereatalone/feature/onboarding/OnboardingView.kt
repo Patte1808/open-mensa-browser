@@ -1,5 +1,6 @@
 package com.nevereatalone.feature.onboarding
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -10,25 +11,32 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
+import com.nevereatalone.App
 import com.nevereatalone.R
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import javax.inject.Inject
 
 
-class OnboardingView : AppCompatActivity() {
+class OnboardingView : AppCompatActivity(), OnboardingContract.View {
 
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
+    val Activity.app: App
+        get() = application as App
+
+
+    @Inject
+    lateinit var presenter: OnboardingContract.Presenter
+
+    val component by lazy { app.component.plus(OnboardingModule(this)) }
+
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+
+        component.inject(this)
+        presenter.onAttached()
 
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
@@ -48,6 +56,16 @@ class OnboardingView : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.onShown()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDetached()
     }
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -88,6 +106,13 @@ class OnboardingView : AppCompatActivity() {
 
         override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
+
+            view?.findViewById<GridView>(R.id.profile_picture_layout)?.apply {
+                adapter = ProfilePictureAdapter(context, listOf("https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
+                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
+                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any"))
+            }
+            //view?.findViewById<View>(R.id.profile_image)?.alpha = 0.1f
 
             view?.findViewById<View>(R.id.background)?.setBackgroundColor(backgroundColor)
         }
