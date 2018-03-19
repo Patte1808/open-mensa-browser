@@ -1,4 +1,4 @@
-package com.nevereatalone.feature.list
+package com.nevereatalone.feature.cafeteria_list
 
 import com.nevereatalone.FeatureScope
 import dagger.Subcomponent

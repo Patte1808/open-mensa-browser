@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.nevereatalone.App
 import com.nevereatalone.R
-import com.nevereatalone.feature.list.CafeteriaListView
+import com.nevereatalone.feature.cafeteria_list.CafeteriaListView
 import kotlinx.android.synthetic.main.app_container.*
 import javax.inject.Inject
 

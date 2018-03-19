@@ -1,8 +1,8 @@
-package com.nevereatalone.feature.list
+package com.nevereatalone.feature.cafeteria_list
 
 import com.nevereatalone.common.rx.RxDisposables
 import com.nevereatalone.common.rx.SingleThreadTransformer
-import com.nevereatalone.feature.list.interactor.GetCafeteriaList
+import com.nevereatalone.feature.cafeteria_list.interactor.GetCafeteriaList
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

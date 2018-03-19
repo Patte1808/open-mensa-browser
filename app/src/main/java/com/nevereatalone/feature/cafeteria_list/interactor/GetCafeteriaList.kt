@@ -1,4 +1,4 @@
-package com.nevereatalone.feature.list.interactor
+package com.nevereatalone.feature.cafeteria_list.interactor
 
 import com.nevereatalone.feature.models.Canteen
 import io.reactivex.Single

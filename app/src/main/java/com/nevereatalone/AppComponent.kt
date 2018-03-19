@@ -5,8 +5,8 @@ import com.nevereatalone.data.api.ApiModule
 import com.nevereatalone.data.api.firebase.FirebaseModule
 import com.nevereatalone.navi.bottom_navi.AppContainerComponent
 import com.nevereatalone.navi.bottom_navi.AppContainerModule
-import com.nevereatalone.feature.list.CafeteriaListComponent
-import com.nevereatalone.feature.list.CafeteriaListModule
+import com.nevereatalone.feature.cafeteria_list.CafeteriaListComponent
+import com.nevereatalone.feature.cafeteria_list.CafeteriaListModule
 import dagger.Component
 import javax.inject.Singleton
 

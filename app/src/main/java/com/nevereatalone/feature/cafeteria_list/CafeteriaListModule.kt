@@ -1,7 +1,7 @@
-package com.nevereatalone.feature.list
+package com.nevereatalone.feature.cafeteria_list
 
-import com.nevereatalone.feature.list.interactor.GetCafeteriaList
-import com.nevereatalone.feature.list.interactor.GetCafeteriaListImpl
+import com.nevereatalone.feature.cafeteria_list.interactor.GetCafeteriaList
+import com.nevereatalone.feature.cafeteria_list.interactor.GetCafeteriaListImpl
 import dagger.Module
 import dagger.Provides
 
