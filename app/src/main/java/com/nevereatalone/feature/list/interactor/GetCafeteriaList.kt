@@ -7,11 +7,11 @@ import io.reactivex.Single.just
 import javax.inject.Inject
 
 
-interface GetMensaList {
+interface GetCafeteriaList {
     fun call(): Single<List<Canteen>>
 }
 
-class GetMensaListImpl @Inject constructor() : GetMensaList {
+class GetCafeteriaListImpl @Inject constructor() : GetCafeteriaList {
     // inject repository here to fetch real canteen
     override fun call(): Single<List<Canteen>> =
             defer { just(generateCanteen()) }

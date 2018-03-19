@@ -3,7 +3,7 @@ package com.nevereatalone.feature.list
 import com.nevereatalone.feature.models.Canteen
 
 
-interface MensaListContract {
+interface CafeteriaListContract {
 
     interface View {
         fun loadDataToList(canteens: List<Canteen>)

@@ -2,20 +2,15 @@ package com.nevereatalone.feature.list
 
 import com.nevereatalone.common.rx.RxDisposables
 import com.nevereatalone.common.rx.SingleThreadTransformer
-import com.nevereatalone.data.api.User
-import com.nevereatalone.data.api.firebase.FirebaseUserService
-import com.nevereatalone.data.api.firebase.UserService
-import com.nevereatalone.feature.list.interactor.GetMensaList
+import com.nevereatalone.feature.list.interactor.GetCafeteriaList
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MensaPresenter @Inject constructor(
-        val view: MensaListContract.View,
-        val firebaseUserService: FirebaseUserService,
-        val userService: UserService,
-        val getMensaList: GetMensaList,
+class CafeteriaListPresenter @Inject constructor(
+        val view: CafeteriaListContract.View,
+        val getCafeteriaList: GetCafeteriaList,
         val singleThreadTransformer: SingleThreadTransformer,
-        val rxDisposables: RxDisposables) : MensaListContract.Presenter {
+        val rxDisposables: RxDisposables) : CafeteriaListContract.Presenter {
 
 
     override fun onAttached() {
@@ -25,15 +20,15 @@ class MensaPresenter @Inject constructor(
         view.hideEmptyView()
 
         rxDisposables.add(
-                getMensaList.call()
+                getCafeteriaList.call()
                         .delay(2, TimeUnit.SECONDS)
                         .compose(singleThreadTransformer.apply())
-                        .subscribe({ canteens ->
+                        .subscribe({ cafeterias ->
                             view.hideLoading()
-                            with(canteens) {
+                            with(cafeterias) {
                                 if (size > 0) {
                                     view.showList()
-                                    view.loadDataToList(canteens)
+                                    view.loadDataToList(cafeterias)
                                 } else {
                                     view.hideList()
                                     view.showEmptyView()
@@ -44,12 +39,7 @@ class MensaPresenter @Inject constructor(
     }
 
     override fun onShown() {
-        firebaseUserService.getAuthAnonymous().addOnSuccessListener({
-            if (it.additionalUserInfo.isNewUser) {
-                val user = User(it.user.uid, "Patrick", 25, "Male")
-                userService.createUserProfile(user)
-            }
-        })
+
     }
 
     override fun onDetached() {
