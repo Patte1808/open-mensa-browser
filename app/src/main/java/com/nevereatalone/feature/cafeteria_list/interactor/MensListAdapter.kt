@@ -1,4 +1,4 @@
-package com.nevereatalone.feature.list.interactor
+package com.nevereatalone.feature.cafeteria_list.interactor
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

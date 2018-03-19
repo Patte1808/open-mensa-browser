@@ -12,13 +12,14 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name=".feature.list.MensaListActivity"
+            android:name=".navi.bottom_navi.AppContainer"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-    </application>
+
+    </application>ß
 
 </manifest>
