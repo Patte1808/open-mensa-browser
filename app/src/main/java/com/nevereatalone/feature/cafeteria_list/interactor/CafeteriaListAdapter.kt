@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import com.nevereatalone.R
 import com.nevereatalone.feature.models.Canteen
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.mensa_list_item.*
+import kotlinx.android.synthetic.main.cafeteria_list_item.*
 
 
-class MensListAdapter @JvmOverloads constructor(val canteens: List<Canteen>) : RecyclerView.Adapter<MensListAdapter.ViewHolder>() {
+class CafeteriaListAdapter @JvmOverloads constructor(val canteens: List<Canteen>) : RecyclerView.Adapter<CafeteriaListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.mensa_list_item, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.cafeteria_list_item, parent, false)
         return ViewHolder(view)
     }
 

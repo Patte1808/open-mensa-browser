@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.nevereatalone.App
 import com.nevereatalone.R
-import com.nevereatalone.feature.cafeteria_list.interactor.MensListAdapter
+import com.nevereatalone.feature.cafeteria_list.interactor.CafeteriaListAdapter
 import com.nevereatalone.feature.models.Canteen
 import com.nevereatalone.inflate
 import kotlinx.android.synthetic.main.cafeteria_list.*
@@ -52,7 +52,7 @@ class CafeteriaListView : Fragment(), CafeteriaListContract.View {
     override fun loadDataToList(canteens: List<Canteen>) {
         list_mensa.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = MensListAdapter(canteens)
+            adapter = CafeteriaListAdapter(canteens)
         }
     }
 

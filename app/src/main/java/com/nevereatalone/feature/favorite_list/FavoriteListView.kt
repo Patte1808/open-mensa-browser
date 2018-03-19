@@ -4,16 +4,12 @@ package com.nevereatalone.feature.favorite_list_list
 import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nevereatalone.App
 import com.nevereatalone.R
-import com.nevereatalone.feature.cafeteria_list.interactor.MensListAdapter
-import com.nevereatalone.feature.models.Canteen
 import com.nevereatalone.inflate
-import kotlinx.android.synthetic.main.cafeteria_list.*
 import javax.inject.Inject
 
 class FavoriteListView : Fragment(), FavoriteListContract.View {
