@@ -7,6 +7,10 @@ import com.nevereatalone.navi.bottom_navi.AppContainerComponent
 import com.nevereatalone.navi.bottom_navi.AppContainerModule
 import com.nevereatalone.feature.cafeteria_list.CafeteriaListComponent
 import com.nevereatalone.feature.cafeteria_list.CafeteriaListModule
+import com.nevereatalone.feature.favorite_list_list.FavoriteListComponent
+import com.nevereatalone.feature.favorite_list_list.FavoriteListModule
+import com.nevereatalone.feature.profile.ProfileComponent
+import com.nevereatalone.feature.profile.ProfileModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -18,8 +22,11 @@ interface AppComponent {
 
     fun inject(app: Application)
 
-    fun plus(listModule: CafeteriaListModule): CafeteriaListComponent
+    // Feature Scopes
 
     fun plus(appModule: AppContainerModule): AppContainerComponent
+    fun plus(listModule: CafeteriaListModule): CafeteriaListComponent
+    fun plus(favoriteListModule: FavoriteListModule): FavoriteListComponent
+    fun plus(profileModule: ProfileModule): ProfileComponent
 
 }

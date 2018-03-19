@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import com.nevereatalone.App
 import com.nevereatalone.R
 import com.nevereatalone.feature.cafeteria_list.CafeteriaListView
+import com.nevereatalone.feature.favorite_list_list.FavoriteListView
+import com.nevereatalone.feature.profile.ProfileView
 import kotlinx.android.synthetic.main.app_container.*
 import javax.inject.Inject
 
@@ -51,13 +53,26 @@ class AppContainer : AppCompatActivity(), AppContainerContract.View {
 
     override fun goToFavorite(): Boolean {
         supportActionBar?.setTitle(R.string.title_favorite)
+        val ft = supportFragmentManager.beginTransaction()
 
+        ft.setCustomAnimations(
+                R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit)
+        ft.replace(R.id.app_container, FavoriteListView())
+        ft.addToBackStack(null)
+        ft.commit()
         return true
     }
 
     override fun goToProfile(): Boolean {
         supportActionBar?.setTitle(R.string.title_profile)
 
+        val ft = supportFragmentManager.beginTransaction()
+
+        ft.setCustomAnimations(
+                R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit)
+        ft.replace(R.id.app_container, ProfileView())
+        ft.addToBackStack(null)
+        ft.commit()
         return true
     }
 
