@@ -3,7 +3,6 @@ package com.nevereatalone.feature.cafeteria_list
 import com.nevereatalone.common.rx.RxDisposables
 import com.nevereatalone.common.rx.SingleThreadTransformer
 import com.nevereatalone.feature.cafeteria_list.interactor.GetCafeteriaList
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CafeteriaListPresenter @Inject constructor(
@@ -21,7 +20,6 @@ class CafeteriaListPresenter @Inject constructor(
 
         rxDisposables.add(
                 getCafeteriaList.call()
-                        .delay(2, TimeUnit.SECONDS)
                         .compose(singleThreadTransformer.apply())
                         .subscribe({ cafeterias ->
                             view.hideLoading()
