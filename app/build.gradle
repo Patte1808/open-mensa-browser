@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 kapt {
     generateStubs = true
@@ -16,17 +21,53 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfigs {
+            debug {
+                storeFile file("debug.keystore")
+            }
+        }
     }
+
     buildTypes {
-        release {
+        debug {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix "debug"
+            versionNameSuffix "-debug"
+            signingConfig android.signingConfigs.debug
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher_debug"
+            ]
+            ext.enableCrashlytics = false
         }
 
         pr {
-            minifyEnabled true
+            debuggable true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // will modify app icons and distribute to Beta channel
+            applicationIdSuffix "pr"
+            versionNameSuffix "-pr"
+            signingConfig android.signingConfigs.debug
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher_pr"
+            ]
+            ext.betaDistributionGroupAliases = "nea-dev"
+            ext.betaDistributionReleaseNotesFilePath = 'pr-build-notes.txt'
+        }
+
+        weekly {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix "weekly"
+            versionNameSuffix "-weekly"
+            signingConfig android.signingConfigs.debug
+            manifestPlaceholders = [
+                    appIcon: "@drawable/ic_launcher"
+            ]
+            ext.betaDistributionGroupAliases = "nea-product"
+            ext.betaDistributionReleaseNotesFilePath = 'weekly-build-notes.txt'
         }
     }
 }
@@ -57,7 +98,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-firestore:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
-
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true
+    }
 
     // Testing
     testImplementation 'junit:junit:4.12'

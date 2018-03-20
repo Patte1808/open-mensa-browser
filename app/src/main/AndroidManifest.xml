@@ -5,9 +5,9 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="${appIcon}"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="${appIcon}"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
@@ -20,6 +20,12 @@
             </intent-filter>
         </activity>
 
-    </application>ß
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c000487f122286d13ecfafa2ad3c7b4b5de18b87"/>
+
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
