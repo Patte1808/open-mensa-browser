@@ -8,10 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
+import android.widget.ImageView
 import com.nevereatalone.App
 import com.nevereatalone.R
 import kotlinx.android.synthetic.main.activity_onboarding.*
@@ -44,18 +46,36 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
             adapter = mSectionsPagerAdapter
         }
 
+        val dots = mutableListOf<ImageView>()
+
         container.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
             override fun onPageSelected(position: Int) {
+                var i = 0
+
+                Log.wtf("Test", (PlaceholderFragment) )
+
+                while(i < container.adapter.count) {
+                    dots.add(i, ImageView(applicationContext))
+
+                    if(position == i)
+                        dots[i].setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.non_selected_item_dot))
+                    else
+                        dots[i].setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.selected_item_dot))
+
+                    i++
+                }
             }
         })
 
+        for(dot in dots) {
+            viewPagerCountDots.addView(dot)
+        }
     }
 
     override fun onStart() {

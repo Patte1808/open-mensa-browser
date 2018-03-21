@@ -10,5 +10,8 @@ interface OnboardingContract {
         fun onAttached()
         fun onShown()
         fun onDetached()
+        fun setUsername(username: String)
+        fun setProfilePicture(profilePicture: String)
+        fun getUsername(): String
     }
 }

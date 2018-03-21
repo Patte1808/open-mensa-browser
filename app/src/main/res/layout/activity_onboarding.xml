@@ -14,15 +14,6 @@
         android:layout_height="match_parent"
         android:paddingBottom="?attr/actionBarSize" />
 
-    <!-- divider -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:alpha="0.12"
-        android:background="@android:color/white" />
-
     <FrameLayout
         android:id="@+id/background"
         android:layout_width="match_parent"
@@ -32,6 +23,19 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:id="@+id/viewPagerCountDots"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pager_height"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+        <Button
+            android:text="Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

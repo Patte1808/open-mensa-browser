@@ -12,6 +12,9 @@ class OnboardingPresenter @Inject constructor(
         val userService: UserService,
         val singleThreadTransformer: SingleThreadTransformer,
         val rxDisposables: RxDisposables) : OnboardingContract.Presenter {
+
+    val onboardingState = OnboardingState()
+
     override fun onAttached() {
 
     }
@@ -22,5 +25,15 @@ class OnboardingPresenter @Inject constructor(
 
     override fun onDetached() {
 
+    }
+
+    override fun setUsername(username: String) {
+        onboardingState.username = username
+    }
+
+    override fun getUsername() = onboardingState.username
+
+    override fun setProfilePicture(profilePicture: String) {
+        onboardingState.profilePicture = profilePicture
     }
 }
