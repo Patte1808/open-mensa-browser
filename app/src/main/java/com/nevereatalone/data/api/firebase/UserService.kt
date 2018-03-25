@@ -9,8 +9,16 @@ class UserService {
 
     fun createUserProfile(user: User) {
         Log.d("UserService", "UserID: ${user.uid}")
-        databaseRef.collection("users").document(user.uid).set(user)
+        databaseRef.collection(USERS_COLLECTION).document(user.uid).set(user)
     }
 
     fun getUser(userUid: String) = databaseRef.collection("users").document(userUid)
+
+    fun updateProfile(user: User) {
+        databaseRef.collection(USERS_COLLECTION).document(user.uid).set(user)
+    }
+
+    companion object {
+        const val USERS_COLLECTION = "users"
+    }
 }

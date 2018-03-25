@@ -1,6 +1,7 @@
 package com.nevereatalone.feature.onboarding
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -8,14 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
-import android.widget.ImageView
+import android.widget.TextView
 import com.nevereatalone.App
 import com.nevereatalone.R
+import com.nevereatalone.navi.bottom_navi.AppContainer
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import javax.inject.Inject
 
@@ -28,6 +31,9 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
 
     @Inject
     lateinit var presenter: OnboardingContract.Presenter
+
+    @Inject
+    lateinit var state: OnboardingState
 
     val component by lazy { app.component.plus(OnboardingModule(this)) }
 
@@ -46,8 +52,6 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
             adapter = mSectionsPagerAdapter
         }
 
-        val dots = mutableListOf<ImageView>()
-
         container.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -56,25 +60,13 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
             }
 
             override fun onPageSelected(position: Int) {
-                var i = 0
 
-                Log.wtf("Test", (PlaceholderFragment) )
-
-                while(i < container.adapter.count) {
-                    dots.add(i, ImageView(applicationContext))
-
-                    if(position == i)
-                        dots[i].setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.non_selected_item_dot))
-                    else
-                        dots[i].setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.selected_item_dot))
-
-                    i++
-                }
             }
         })
 
-        for(dot in dots) {
-            viewPagerCountDots.addView(dot)
+
+        finish_onboarding.setOnClickListener {
+            presenter.onFinishOnboarding(state)
         }
     }
 
@@ -88,10 +80,16 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
         presenter.onDetached()
     }
 
+    override fun openCanteenList() {
+        val intent = Intent(this, AppContainer::class.java)
+
+        startActivity(intent)
+    }
+
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
-            return PlaceholderFragment.newInstance(position, ContextCompat.getColor(applicationContext, R.color.materialWhite))
+            return PlaceholderFragment.newInstance(position, ContextCompat.getColor(applicationContext, R.color.materialWhite), state)
         }
 
         override fun getCount(): Int {
@@ -103,12 +101,14 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
 
         var backgroundColor: Int = 0
         var pageNumber: Int = 0
+        var state: OnboardingState = OnboardingState()
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
             backgroundColor = arguments.getInt(BACKGROUND_COLOR)
             pageNumber = arguments.getInt(PAGE_NUMBER)
+            state = arguments.getParcelable(STATE)
         }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -128,25 +128,45 @@ class OnboardingView : AppCompatActivity(), OnboardingContract.View {
             super.onViewCreated(view, savedInstanceState)
 
             view?.findViewById<GridView>(R.id.profile_picture_layout)?.apply {
-                adapter = ProfilePictureAdapter(context, listOf("https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
+                adapter = PictureAdapter(context, listOf("https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
                         "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
-                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any"))
+                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any"), state, ProfileScreen)
             }
-            //view?.findViewById<View>(R.id.profile_image)?.alpha = 0.1f
+
+            view?.findViewById<GridView>(R.id.taste_picture_layout)?.apply {
+                adapter = PictureAdapter(context, listOf("https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
+                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any",
+                        "https://placeimg.com/640/480/any", "https://placeimg.com/640/480/any"), state, TasteScreen)
+            }
+
+            view?.findViewById<TextView>(R.id.input_username)?.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    state.username = s.toString()
+                }
+            })
 
             view?.findViewById<View>(R.id.background)?.setBackgroundColor(backgroundColor)
         }
 
         companion object {
-
             const val BACKGROUND_COLOR = "backgroundColor"
             const val PAGE_NUMBER = "pageNumber"
+            const val STATE = "state"
 
-            fun newInstance(pageNumber: Int, backgroundColor: Int): PlaceholderFragment {
+            fun newInstance(pageNumber: Int, backgroundColor: Int, state: OnboardingState): PlaceholderFragment {
                 val fragment = PlaceholderFragment()
                 val args = Bundle()
                 args.putInt(PAGE_NUMBER, pageNumber)
                 args.putInt(BACKGROUND_COLOR, backgroundColor)
+                args.putParcelable(STATE, state)
                 fragment.arguments = args
                 return fragment
             }

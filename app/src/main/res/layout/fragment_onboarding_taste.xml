@@ -29,35 +29,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/title"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <GridView
+        android:id="@+id/taste_picture_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/description"
+        app:layout_constraintTop_toTopOf="@id/description"
         android:gravity="center"
-        android:layout_marginTop="70dp">
-        <ImageButton
-            android:background="@drawable/ic_android_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageButton
-            android:background="@drawable/ic_android_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageButton
-            android:background="@drawable/ic_android_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageButton
-            android:background="@drawable/ic_android_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="spacingWidthUniform">
+    </GridView>
 
 </android.support.constraint.ConstraintLayout>

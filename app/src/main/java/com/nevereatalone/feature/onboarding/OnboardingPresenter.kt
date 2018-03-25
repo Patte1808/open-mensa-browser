@@ -1,5 +1,6 @@
 package com.nevereatalone.feature.onboarding
 
+import android.util.Log
 import com.nevereatalone.common.rx.RxDisposables
 import com.nevereatalone.common.rx.SingleThreadTransformer
 import com.nevereatalone.data.api.firebase.FirebaseUserService
@@ -11,9 +12,8 @@ class OnboardingPresenter @Inject constructor(
         val firebaseUserService: FirebaseUserService,
         val userService: UserService,
         val singleThreadTransformer: SingleThreadTransformer,
-        val rxDisposables: RxDisposables) : OnboardingContract.Presenter {
-
-    val onboardingState = OnboardingState()
+        val rxDisposables: RxDisposables,
+        val state: OnboardingState) : OnboardingContract.Presenter {
 
     override fun onAttached() {
 
@@ -28,12 +28,23 @@ class OnboardingPresenter @Inject constructor(
     }
 
     override fun setUsername(username: String) {
-        onboardingState.username = username
+        state.username = username
     }
 
-    override fun getUsername() = onboardingState.username
+    override fun getUsername() = state.username
 
     override fun setProfilePicture(profilePicture: String) {
-        onboardingState.profilePicture = profilePicture
+        state.profilePicture = profilePicture
+    }
+
+    override fun onFinishOnboarding(state: OnboardingState) {
+        firebaseUserService.getAuthAnonymous().addOnSuccessListener {
+            state.uid = it.user.uid
+            Log.wtf("Onboarding", "$state")
+            Log.wtf("Onboarding", "${state.toUser()}")
+            userService.updateProfile(state.toUser())
+
+            view.openCanteenList()
+        }
     }
 }

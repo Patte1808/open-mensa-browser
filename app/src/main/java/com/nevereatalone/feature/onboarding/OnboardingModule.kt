@@ -11,4 +11,7 @@ class OnboardingModule(val view: OnboardingContract.View) {
 
     @Provides
     fun providePresenter(presenter: OnboardingPresenter): OnboardingContract.Presenter = presenter
+
+    @Provides
+    fun provideOnboardingState(): OnboardingState = OnboardingState()
 }

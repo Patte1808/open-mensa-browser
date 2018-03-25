@@ -12,7 +12,15 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="?attr/actionBarSize" />
+        android:paddingBottom="?attr/actionBarSize">
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            />
+    </android.support.v4.view.ViewPager>
 
     <FrameLayout
         android:id="@+id/background"
@@ -33,9 +41,13 @@
             android:orientation="horizontal" />
 
         <Button
-            android:text="Done"
+            android:id="@+id/finish_onboarding"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/finish_onboarding"/>
     </FrameLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

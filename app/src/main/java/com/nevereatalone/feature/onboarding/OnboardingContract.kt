@@ -3,7 +3,7 @@ package com.nevereatalone.feature.onboarding
 interface OnboardingContract {
 
     interface View {
-        
+        fun openCanteenList()
     }
 
     interface Presenter {
@@ -13,5 +13,6 @@ interface OnboardingContract {
         fun setUsername(username: String)
         fun setProfilePicture(profilePicture: String)
         fun getUsername(): String
+        fun onFinishOnboarding(state: OnboardingState)
     }
 }
