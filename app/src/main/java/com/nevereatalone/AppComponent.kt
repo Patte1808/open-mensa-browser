@@ -3,6 +3,7 @@ package com.nevereatalone
 import android.app.Application
 import com.nevereatalone.data.api.ApiModule
 import com.nevereatalone.data.api.firebase.FirebaseModule
+import com.nevereatalone.data.local.shared_preferences.SharedPreferencesModule
 import com.nevereatalone.feature.cafeteria_list.CafeteriaListComponent
 import com.nevereatalone.feature.cafeteria_list.CafeteriaListModule
 import com.nevereatalone.feature.favorite_list_list.FavoriteListComponent
@@ -18,8 +19,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class, ApiModule::class, FirebaseModule::class))
-
+@Component(modules = arrayOf(AppModule::class, ApiModule::class, FirebaseModule::class,
+        SharedPreferencesModule::class))
 interface AppComponent {
 
     fun inject(app: Application)

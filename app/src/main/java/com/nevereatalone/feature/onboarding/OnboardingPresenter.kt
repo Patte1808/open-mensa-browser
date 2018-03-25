@@ -1,10 +1,10 @@
 package com.nevereatalone.feature.onboarding
 
-import android.util.Log
 import com.nevereatalone.common.rx.RxDisposables
 import com.nevereatalone.common.rx.SingleThreadTransformer
 import com.nevereatalone.data.api.firebase.FirebaseUserService
 import com.nevereatalone.data.api.firebase.UserService
+import com.nevereatalone.data.local.shared_preferences.SharedPreferencesService
 import javax.inject.Inject
 
 class OnboardingPresenter @Inject constructor(
@@ -13,10 +13,15 @@ class OnboardingPresenter @Inject constructor(
         val userService: UserService,
         val singleThreadTransformer: SingleThreadTransformer,
         val rxDisposables: RxDisposables,
-        val state: OnboardingState) : OnboardingContract.Presenter {
+        val state: OnboardingState,
+        val sharedPreferencesService: SharedPreferencesService) : OnboardingContract.Presenter {
 
     override fun onAttached() {
+        val isAlreadyOnboarded = sharedPreferencesService.getOnboardingStatus()
 
+        if (isAlreadyOnboarded) {
+            view.openCanteenList()
+        }
     }
 
     override fun onShown() {
@@ -40,9 +45,9 @@ class OnboardingPresenter @Inject constructor(
     override fun onFinishOnboarding(state: OnboardingState) {
         firebaseUserService.getAuthAnonymous().addOnSuccessListener {
             state.uid = it.user.uid
-            Log.wtf("Onboarding", "$state")
-            Log.wtf("Onboarding", "${state.toUser()}")
             userService.updateProfile(state.toUser())
+
+            sharedPreferencesService.setOnboardingStatus(true)
 
             view.openCanteenList()
         }
